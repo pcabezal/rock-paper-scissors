@@ -30,7 +30,7 @@
     }
 
     function computerPlay() {       // picks a random number and assigns computer rock paper or scissors
-        let chance = Math.random();
+  /*      let chance = Math.random();
         console.log(chance);
         if (chance < .333) {
                 computerSelection = 'rock';
@@ -39,7 +39,8 @@
             } else {
                 computerSelection = 'scissors'
             }
-         console.log(computerSelection, '- comp selection')
+         console.log(computerSelection, '- comp selection') */
+         computerSelection = 'scissors';
         }
 
     function playRound() {
@@ -51,16 +52,22 @@
             playRound();
         } else if (playerSelection == 'rock' && computerSelection == 'scissors') {
             alert(playerSelection + ' vs. ' + computerSelection + '\n You Win! Nice!');
+            winCount++;
         } else if (playerSelection == 'rock' && computerSelection == 'paper') {
             alert(playerSelection + ' vs. ' + computerSelection + '\nYou Lose! Terrible!');
+            lossCount++;
         } else if (playerSelection == 'paper' && computerSelection == 'rock') {
             alert(playerSelection + ' vs. ' + computerSelection + '\n You Win! Nice!');
+            winCount++;
         } else if (playerSelection == 'paper' && computerSelection == 'scissors') {
             alert(playerSelection + ' vs. ' + computerSelection + '\nYou Lose! Terrible!');
+            lossCount++;
         } else if (playerSelection == 'scissors' && computerSelection == 'paper') {
             alert(playerSelection + ' vs. ' + computerSelection + '\n You Win! Nice!');
+            winCount++;
         } else if (playerSelection == 'scissors' && computerSelection == 'rock') {
             alert(playerSelection + ' vs. ' + computerSelection + '\nYou Lose! Terrible!');
+            lossCount++;
         }
     }
 

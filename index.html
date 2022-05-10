@@ -13,24 +13,29 @@
 
     let playerSelection = 'whatever';
     let computerSelection = 'something';
-    let win = 'maybe';
     let winCount = 0;
     let lossCount = 0;
 
-    function askPlayer() {
-        let playerTyped = prompt('Select Rock, Paper, or Scissors').toLowerCase(); 
-        console.log(playerTyped, '- user typed this');
+    function askPlayer() { // asks user to choose RPS and stores it as playerSelection
+        let playerPrompt = prompt('Select Rock, Paper, or Scissors');
+
+        if (playerPrompt == null) {  // clicking cancel is against the rules sorry
+            alert('No cancelling allowed! You think this is a game?');
+            askPlayer();
+        } else {
+            playerTyped = playerPrompt.toLowerCase(); // fixes case
+        }
+
         if (playerTyped == 'rock' || playerTyped == 'paper' || playerTyped == 'scissors') {   // makes sure proper selection is entered
             playerSelection = playerTyped;
-            } else {
+        } else {
             alert('You know the rules chump');
             askPlayer();
         }
-        console.log(playerSelection, 'player Selection');
-    }
+     }
 
-    function computerPlay() {       // picks a random number and assigns computer rock paper or scissors
-  /*      let chance = Math.random();
+    function computerPlay() {       // picks a random number to assign RPS to computerSelection
+        let chance = Math.random();
         console.log(chance);
         if (chance < .333) {
                 computerSelection = 'rock';
@@ -39,11 +44,10 @@
             } else {
                 computerSelection = 'scissors'
             }
-         console.log(computerSelection, '- comp selection') */
-         computerSelection = 'scissors';
-        }
+         console.log(computerSelection, '- comp selection')
+    }
 
-    function playRound() {
+    function playRound() {      // gets values for Player and Computer choices and determines winner, gives message and adjusts wins/losses
         askPlayer();
         computerPlay();
         console.log(playerSelection, computerSelection)
@@ -71,18 +75,19 @@
         }
     }
 
-    playRound();
-
-    function game() {
+    function theGame() {    // plays 5 rounds and and announces winner at the end
         for (let i = 0; i < 5; i++) {
-
+            playRound();
+            alert('Player wins: ' + winCount + '\n Computer Wins: ' + lossCount);
+        }
+        if (winCount > lossCount) {
+            alert('You win the series with ' + winCount + ' wins!');
+        } else {
+            alert('You lose the series with ' + lossCount + ' losses!');
         }
     }
 
-
-
-
-
+    theGame();
 
 </script>
 

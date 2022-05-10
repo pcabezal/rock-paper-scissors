@@ -9,7 +9,51 @@
 <body>
 <img src="images/rps.jpg" width="1000" height="500">
 
+<script>
 
+    let playerSelection = 'whatever';
+
+    function askPlayer() {
+        let playerTyped = prompt('Select Rock, Paper, or Scissors').toLowerCase(); 
+        console.log(playerTyped, '- user typed this');
+        if (playerTyped == 'rock' || playerTyped == 'paper' || playerTyped == 'scissors') {   // makes sure proper selection is entered
+            playerSelection = playerTyped;
+            } else {
+            alert('You know the rules chump');
+            askPlayer();
+        }
+        console.log(playerSelection);
+    }
+
+    askPlayer();
+
+    function computerPlay() {
+        let chance = Math.random();
+        console.log(chance);
+        if (chance < .333) {
+            return 'rock';
+        } else if (.333 <= chance && chance < .666) {
+            return 'paper';
+        } else {
+            return 'scissors;'
+    }
+
+    function playRound() {
+        
+    }
+
+    function game() {
+        for (let i = 0; i < 5; i++) {
+
+        }
+    }
+
+}
+console.log(computerPlay(), 'Compooder selection');
+
+
+
+</script>
 
     
 </body>

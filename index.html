@@ -12,6 +12,10 @@
 <script>
 
     let playerSelection = 'whatever';
+    let computerSelection = 'something';
+    let win = 'maybe';
+    let winCount = 0;
+    let lossCount = 0;
 
     function askPlayer() {
         let playerTyped = prompt('Select Rock, Paper, or Scissors').toLowerCase(); 
@@ -22,25 +26,45 @@
             alert('You know the rules chump');
             askPlayer();
         }
-        console.log(playerSelection);
+        console.log(playerSelection, 'player Selection');
     }
 
-    askPlayer();
-
-    function computerPlay() {
+    function computerPlay() {       // picks a random number and assigns computer rock paper or scissors
         let chance = Math.random();
         console.log(chance);
         if (chance < .333) {
-            return 'rock';
-        } else if (.333 <= chance && chance < .666) {
-            return 'paper';
-        } else {
-            return 'scissors;'
-    }
+                computerSelection = 'rock';
+            } else if (.333 <= chance && chance < .666) {
+                computerSelection = 'paper';
+            } else {
+                computerSelection = 'scissors'
+            }
+         console.log(computerSelection, '- comp selection')
+        }
 
     function playRound() {
-        
+        askPlayer();
+        computerPlay();
+        console.log(playerSelection, computerSelection)
+        if (playerSelection == computerSelection) {
+            alert(playerSelection + ' vs. ' + computerSelection + '\nTie! Wow!');
+            playRound();
+        } else if (playerSelection == 'rock' && computerSelection == 'scissors') {
+            alert(playerSelection + ' vs. ' + computerSelection + '\n You Win! Nice!');
+        } else if (playerSelection == 'rock' && computerSelection == 'paper') {
+            alert(playerSelection + ' vs. ' + computerSelection + '\nYou Lose! Terrible!');
+        } else if (playerSelection == 'paper' && computerSelection == 'rock') {
+            alert(playerSelection + ' vs. ' + computerSelection + '\n You Win! Nice!');
+        } else if (playerSelection == 'paper' && computerSelection == 'scissors') {
+            alert(playerSelection + ' vs. ' + computerSelection + '\nYou Lose! Terrible!');
+        } else if (playerSelection == 'scissors' && computerSelection == 'paper') {
+            alert(playerSelection + ' vs. ' + computerSelection + '\n You Win! Nice!');
+        } else if (playerSelection == 'scissors' && computerSelection == 'rock') {
+            alert(playerSelection + ' vs. ' + computerSelection + '\nYou Lose! Terrible!');
+        }
     }
+
+    playRound();
 
     function game() {
         for (let i = 0; i < 5; i++) {
@@ -48,8 +72,8 @@
         }
     }
 
-}
-console.log(computerPlay(), 'Compooder selection');
+
+
 
 
 

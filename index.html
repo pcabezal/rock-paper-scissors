@@ -4,10 +4,30 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
     <title>Rock Paper Scissors</title>
 </head>
 <body>
-<img src="images/rps.jpg" width="1000" height="500">
+    <button id="myBtn">Try it</button>
+    <p id="demo"></p>
+
+
+    <div class="keys">
+        <div data-key="65" id="rockButton">
+            <kbd>ROCK</kbd>
+            <span class="sound">Q</span>
+        </div>
+        <div data-key="65" id="paperButton">
+            <kbd>PAPER</kbd>
+            <span class="sound">W</span>
+        </div>
+        <div data-key="65" id="scissorsButton">
+            <kbd>SCISSORS</kbd>
+            <span class="sound">E</span>
+        </div>
+    </div> 
+
+
 
 <script>
 
@@ -15,6 +35,30 @@
     let computerSelection 
     let winCount = 0;
     let lossCount = 0;
+
+    const rockButt = document.getElementById("rockButton");
+    rockButt.addEventListener("click", rockClick);
+
+    function rockClick() {
+        document.getElementById("demo").innerHTML = "rock clicked";
+        playerSelection='rock';
+    }
+
+    const paperButt = document.getElementById("paperButton");
+    paperButt.addEventListener("click", paperClick);
+
+    function paperClick() {
+        document.getElementById("demo").innerHTML = "paper clicked";
+        playerSelection='paper';
+    }
+
+    const scissorsButt = document.getElementById("scissorsButton");
+    scissorsButt.addEventListener("click", scissorsClick);
+
+    function scissorsClick() {
+        document.getElementById("demo").innerHTML = "scissors clicked";
+        playerSelection='scissors';
+    }
 
     function askPlayer() { // asks user to choose RPS and stores it as playerSelection
         let playerPrompt = prompt('Select Rock, Paper, or Scissors');
@@ -75,7 +119,7 @@
         }
     }
 
-    theGame();
+    
 
 </script>
 

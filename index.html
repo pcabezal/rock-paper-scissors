@@ -36,7 +36,6 @@
 
     function computerPlay() {       // picks a random number to assign RPS to computerSelection
         let chance = Math.random();
-        console.log(chance);
         if (chance < .333) {
                 computerSelection = 'rock';
             } else if (.333 <= chance && chance < .666) {
@@ -54,25 +53,14 @@
         if (playerSelection == computerSelection) {
             alert(playerSelection + ' vs. ' + computerSelection + '\nTie! Wow!');
             playRound();
-        } else if (playerSelection == 'rock' && computerSelection == 'scissors') {
+        } else if (playerSelection == 'rock' && computerSelection == 'scissors' || 
+            playerSelection == 'paper' && computerSelection == 'rock' || playerSelection == 'scissors' && computerSelection == 'paper') {
             alert(playerSelection + ' vs. ' + computerSelection + '\n You Win! Nice!');
             winCount++;
-        } else if (playerSelection == 'rock' && computerSelection == 'paper') {
+        } else {
             alert(playerSelection + ' vs. ' + computerSelection + '\nYou Lose! Terrible!');
             lossCount++;
-        } else if (playerSelection == 'paper' && computerSelection == 'rock') {
-            alert(playerSelection + ' vs. ' + computerSelection + '\n You Win! Nice!');
-            winCount++;
-        } else if (playerSelection == 'paper' && computerSelection == 'scissors') {
-            alert(playerSelection + ' vs. ' + computerSelection + '\nYou Lose! Terrible!');
-            lossCount++;
-        } else if (playerSelection == 'scissors' && computerSelection == 'paper') {
-            alert(playerSelection + ' vs. ' + computerSelection + '\n You Win! Nice!');
-            winCount++;
-        } else if (playerSelection == 'scissors' && computerSelection == 'rock') {
-            alert(playerSelection + ' vs. ' + computerSelection + '\nYou Lose! Terrible!');
-            lossCount++;
-        }
+        } 
     }
 
     function theGame() {    // plays 5 rounds and and announces winner at the end

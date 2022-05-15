@@ -8,10 +8,12 @@
     <title>Rock Paper Scissors</title>
 </head>
 <body>
-    <button id="myBtn">Try it</button>
+    
+
+    Human Score: <p id="humanScore"></p>
+    Computer Score: <p id="compScore"></p>
+
     <p id="demo"></p>
-
-
     <div class="keys">
         <div data-key="65" id="rockButton">
             <kbd>ROCK</kbd>
@@ -36,12 +38,18 @@
     let winCount = 0;
     let lossCount = 0;
 
+    document.getElementById("humanScore").innerHTML = winCount;
+    document.getElementById("compScore").innerHTML = lossCount;
+    document.getElementById("demo").innerHTML = 'Care to play the game of champions? Make a choice!'
+
+
     const rockButt = document.getElementById("rockButton");
     rockButt.addEventListener("click", rockClick);
 
     function rockClick() {
         document.getElementById("demo").innerHTML = "rock clicked";
         playerSelection='rock';
+        playRound();
     }
 
     const paperButt = document.getElementById("paperButton");
@@ -50,6 +58,7 @@
     function paperClick() {
         document.getElementById("demo").innerHTML = "paper clicked";
         playerSelection='paper';
+        playRound();
     }
 
     const scissorsButt = document.getElementById("scissorsButton");
@@ -58,25 +67,8 @@
     function scissorsClick() {
         document.getElementById("demo").innerHTML = "scissors clicked";
         playerSelection='scissors';
+        playRound();
     }
-
-    function askPlayer() { // asks user to choose RPS and stores it as playerSelection
-        let playerPrompt = prompt('Select Rock, Paper, or Scissors');
-
-        if (playerPrompt == null) {  // clicking cancel is against the rules sorry
-            alert('No cancelling allowed! You think this is a game?');
-            askPlayer();
-        } else {
-            playerTyped = playerPrompt.toLowerCase(); // fixes case
-        }
-
-        if (playerTyped == 'rock' || playerTyped == 'paper' || playerTyped == 'scissors') {   // makes sure proper selection is entered
-            playerSelection = playerTyped;
-        } else {
-            alert('You know the rules chump');
-            askPlayer();
-        }
-     }
 
     function computerPlay() {       // picks a random number to assign RPS to computerSelection
         let chance = Math.random();
@@ -91,19 +83,21 @@
     }
 
     function playRound() {      // gets values for Player and Computer choices and determines winner, gives message and adjusts wins/losses
-        askPlayer();
         computerPlay();
         console.log(playerSelection, computerSelection)
         if (playerSelection == computerSelection) {
-            alert(playerSelection + ' vs. ' + computerSelection + '\nTie! Wow!');
-            playRound();
+            document.getElementById("demo").innerHTML = "Tie game!";
         } else if (playerSelection == 'rock' && computerSelection == 'scissors' || 
             playerSelection == 'paper' && computerSelection == 'rock' || playerSelection == 'scissors' && computerSelection == 'paper') {
-            alert(playerSelection + ' vs. ' + computerSelection + '\n You Win! Nice!');
+            document.getElementById("demo").innerHTML = playerSelection + ' vs. ' + computerSelection + 'You Win! Nice!';
             winCount++;
+            document.getElementById("humanScore").innerHTML = winCount;
+            document.getElementById("compScore").innerHTML = lossCount;
         } else {
-            alert(playerSelection + ' vs. ' + computerSelection + '\nYou Lose! Terrible!');
+            document.getElementById("demo").innerHTML = playerSelection + ' vs. ' + computerSelection + 'You Lose!';
             lossCount++;
+            document.getElementById("humanScore").innerHTML = winCount;
+            document.getElementById("compScore").innerHTML = lossCount;
         } 
     }
 

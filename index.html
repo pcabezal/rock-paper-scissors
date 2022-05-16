@@ -9,64 +9,79 @@
 </head>
 <body>
     
+    <div class="scoreContainer">
+        <div class="humanScore">Human Score: <p id="humanScore"></p></div>
+        <div class="computerScore">Computer Score: <p id="compScore"></p></div>
+    </div>
 
-    Human Score: <p id="humanScore"></p>
-    Computer Score: <p id="compScore"></p>
+    <div class="resultsContainer">
+        <p id="results"></p>
+    </div>
 
-    <p id="demo"></p>
+    <div class="artContainer">
+        <div class="artLeft"></div>
+        <div class="artCenter"></div>
+        <div class="artRight"></div>
+    </div>
 
-    <p id="newGame"></p>
-
-    <div class="keys">
-        <div data-key="65" id="rockButton">
+    <div class="buttons">
+        <div class="selector" id="rockButton">
             <kbd>ROCK</kbd>
-            <span class="sound">Q</span>
         </div>
-        <div data-key="65" id="paperButton">
+        <div class="selector" id="paperButton">
             <kbd>PAPER</kbd>
-            <span class="sound">W</span>
         </div>
-        <div data-key="65" id="scissorsButton">
+        <div class="selector" id="scissorsButton">
             <kbd>SCISSORS</kbd>
-            <span class="sound">E</span>
         </div>
     </div> 
 
-
+    <div class="newGameContainer">
+        <p id="newGame"></p>
+    </div>
 
 <script>
-
-    let playerSelection 
-    let computerSelection 
+    let playerSelection ;
+    let computerSelection ;
     let winCount = 0;
     let lossCount = 0;
 
     document.getElementById("humanScore").innerHTML = winCount;
     document.getElementById("compScore").innerHTML = lossCount;
-    document.getElementById("demo").innerHTML = 'Care to play the game of champions? Make a choice!'
+    document.getElementById("results").innerHTML = 'Care to play the game of champions? Make a choice!'
+
+    const buttons = document.querySelectorAll('.selector');
+    buttons.forEach (selector => selector.addEventListener('transitionend', removeTransition));
+
+    function removeTransition(e) {
+        this.classList.remove('clicked');
+    }
 
     const rockButt = document.getElementById("rockButton");
     rockButt.addEventListener("click", rockClick);
     function rockClick() {
-        document.getElementById("demo").innerHTML = "rock clicked";
+        document.getElementById("results").innerHTML = "rock clicked";
         playerSelection='rock';
         playRound();
+        rockButton.classList.add('clicked');
     }
 
     const paperButt = document.getElementById("paperButton");
     paperButt.addEventListener("click", paperClick);
     function paperClick() {
-        document.getElementById("demo").innerHTML = "paper clicked";
+        document.getElementById("results").innerHTML = "paper clicked";
         playerSelection='paper';
         playRound();
+        paperButton.classList.add('clicked');
     } 
 
     const scissorsButt = document.getElementById("scissorsButton");
     scissorsButt.addEventListener("click", scissorsClick);
     function scissorsClick() {
-        document.getElementById("demo").innerHTML = "scissors clicked";
+        document.getElementById("results").innerHTML = "scissors clicked";
         playerSelection='scissors';
         playRound();
+        scissorsButton.classList.add('clicked');
     }
 
     function computerPlay() {       // picks a random number to assign RPS to computerSelection
@@ -78,33 +93,33 @@
             } else {
                 computerSelection = 'scissors'
             }
-             }
+    }
 
     function playRound() {      // gets values for Player and Computer choices and determines winner, gives message and adjusts wins/losses
         computerPlay();
         if (playerSelection == computerSelection) {
-            document.getElementById("demo").innerHTML = playerSelection + ' vs. ' + computerSelection +  "Tie game!";
+            document.getElementById("results").innerHTML = playerSelection + ' vs. ' + computerSelection +  "Tie game!";
         } else if (playerSelection == 'rock' && computerSelection == 'scissors' || 
             playerSelection == 'paper' && computerSelection == 'rock' || playerSelection == 'scissors' && computerSelection == 'paper') {
-            document.getElementById("demo").innerHTML = playerSelection + ' vs. ' + computerSelection + 'You Win! Nice!';
+            document.getElementById("results").innerHTML = playerSelection + ' vs. ' + computerSelection + 'You Win! Nice!';
             winCount++;
             document.getElementById("humanScore").innerHTML = winCount;
        } else {
-            document.getElementById("demo").innerHTML = playerSelection + ' vs. ' + computerSelection + 'You Lose!';
+            document.getElementById("results").innerHTML = playerSelection + ' vs. ' + computerSelection + 'You Lose!';
             lossCount++;
             document.getElementById("compScore").innerHTML = lossCount;
         } 
 
         if (winCount === 5) {
-            removeListener();
-            document.getElementById("demo").innerHTML = 'Humans win! Computers are losers!';
+            gameOver();
+            document.getElementById("results").innerHTML = 'Humans win! Computers are losers!';
         } else if (lossCount === 5) {
-            removeListener();
-            document.getElementById("demo").innerHTML = 'Computers win! Prepare to be assimilated!';
+            gameOver();
+            document.getElementById("results").innerHTML = 'Computers win! Prepare to be assimilated!';
         }
     }
 
-    function removeListener() {
+    function gameOver() {
         rockButton.removeEventListener("click", rockClick);
         scissorsButton.removeEventListener("click", scissorsClick);
         paperButton.removeEventListener("click", paperClick);
@@ -113,33 +128,18 @@
         gameNew.addEventListener("click", newGameClick);
     }
 
-
-
     function newGameClick() {
         winCount = 0;
         lossCount = 0;
         document.getElementById("compScore").innerHTML = lossCount;
         document.getElementById("humanScore").innerHTML = winCount;
-        document.getElementById("demo").innerHTML = 'Prepare to battle again!'
+        document.getElementById("results").innerHTML = 'Prepare to battle again!'
         rockButton.addEventListener("click", rockClick);
         scissorsButton.addEventListener("click", scissorsClick);
         paperButton.addEventListener("click", paperClick);
     }
-
  
-    function theGame() {    // plays 5 rounds and and announces winner at the end
-        for (let i = 0; i < 5; i++) {
-            playRound();
-            alert('Player wins: ' + winCount + '\n Computer Wins: ' + lossCount);
-        }
-        if (winCount > lossCount) {
-            alert('You win the series with ' + winCount + ' wins!');
-        } else {
-            alert('You lose the series with ' + lossCount + ' losses!');
-        }
-    }
-
-    
+   
 
 </script>
 

@@ -10,29 +10,23 @@
 <body>
     
     <div class="scoreContainer">
-        <div class="humanScore">Human Score: <p id="humanScore"></p></div>
-        <div class="computerScore">Computer Score: <p id="compScore"></p></div>
+        <div class="humScore">Human Score: <p id="humanScore"></p></div>
+        <div class="compScore">Computer Score: <p id="compScore"></p></div>
     </div>
 
     <div class="resultsContainer">
         <p id="results"></p>
     </div>
 
-    <div class="artContainer">
-        <div class="artLeft"></div>
-        <div class="artCenter"></div>
-        <div class="artRight"></div>
-    </div>
-
     <div class="buttons">
         <div class="selector" id="rockButton">
-            <kbd>ROCK</kbd>
+            ROCK
         </div>
         <div class="selector" id="paperButton">
-            <kbd>PAPER</kbd>
+            PAPER
         </div>
         <div class="selector" id="scissorsButton">
-            <kbd>SCISSORS</kbd>
+            SCISSORS
         </div>
     </div> 
 
@@ -40,9 +34,13 @@
         <p id="newGame"></p>
     </div>
 
+    <div class="artContainer">
+        <div id="artCenter"></div>
+    </div>
+
 <script>
-    let playerSelection ;
-    let computerSelection ;
+    let playerSelection = null;
+    let computerSelection = null ;
     let winCount = 0;
     let lossCount = 0;
 
@@ -95,30 +93,40 @@
             }
     }
 
+    const bmoHappy = document.createElement('img');
+    bmoHappy.src = 'images/bmohappy.gif';
+
+    const bmoSad = document.createElement('img');
+    bmoSad.src = 'images/bmosad.gif';
+
+    const removeImg = document.getElementById('artCenter');
+
     function playRound() {      // gets values for Player and Computer choices and determines winner, gives message and adjusts wins/losses
         computerPlay();
+        
         if (playerSelection == computerSelection) {
-            document.getElementById("results").innerHTML = playerSelection + ' vs. ' + computerSelection +  "Tie game!";
+            document.getElementById("results").innerHTML = playerSelection + ' vs. ' + computerSelection +  "<br>Tie game!";
         } else if (playerSelection == 'rock' && computerSelection == 'scissors' || 
             playerSelection == 'paper' && computerSelection == 'rock' || playerSelection == 'scissors' && computerSelection == 'paper') {
-            document.getElementById("results").innerHTML = playerSelection + ' vs. ' + computerSelection + 'You Win! Nice!';
+            document.getElementById("results").innerHTML = playerSelection + ' vs. ' + computerSelection + '<br>You Win! Nice!';
             winCount++;
             document.getElementById("humanScore").innerHTML = winCount;
        } else {
-            document.getElementById("results").innerHTML = playerSelection + ' vs. ' + computerSelection + 'You Lose!';
+            document.getElementById("results").innerHTML = playerSelection + ' vs. ' + computerSelection + '<br>You Lose!';
             lossCount++;
             document.getElementById("compScore").innerHTML = lossCount;
         } 
-
         if (winCount === 5) {
             gameOver();
+            document.querySelector('#artCenter').appendChild(bmoSad);
             document.getElementById("results").innerHTML = 'Humans win! Computers are losers!';
         } else if (lossCount === 5) {
             gameOver();
+            document.querySelector('#artCenter').appendChild(bmoHappy);
             document.getElementById("results").innerHTML = 'Computers win! Prepare to be assimilated!';
         }
     }
-
+    
     function gameOver() {
         rockButton.removeEventListener("click", rockClick);
         scissorsButton.removeEventListener("click", scissorsClick);
@@ -130,17 +138,16 @@
 
     function newGameClick() {
         winCount = 0;
-        lossCount = 0;
+        lossCount = 0;        
         document.getElementById("compScore").innerHTML = lossCount;
         document.getElementById("humanScore").innerHTML = winCount;
         document.getElementById("results").innerHTML = 'Prepare to battle again!'
         rockButton.addEventListener("click", rockClick);
         scissorsButton.addEventListener("click", scissorsClick);
         paperButton.addEventListener("click", paperClick);
+        removeImg.removeChild(removeImg.childNodes[0]);
+        document.getElementById("newGame").innerHTML = '';
     }
- 
-   
-
 </script>
 
     
